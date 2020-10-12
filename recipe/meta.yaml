@@ -23,7 +23,7 @@ requirements:
   run:
     - python >=2.7
     - flask
-    - brotlipy
+    - brotli-python
 
 test:
   source_files:
