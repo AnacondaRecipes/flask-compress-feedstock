@@ -20,13 +20,13 @@ requirements:
   host:
     - python
     - pip
-    - setuptools >=42
-    - setuptools_scm >=3.4
+    - setuptools
+    - setuptools_scm
     - wheel
   run:
     - python
     - flask
-    - brotli-python
+    - brotli
 
 test:
   source_files:
