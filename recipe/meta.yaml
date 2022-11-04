@@ -45,8 +45,8 @@ about:
   license: MIT
   license_family: MIT
   license_file: LICENSE.txt
+  license_url: https://github.com/colour-science/flask-compress/blob/v{{ version }}/LICENSE.txt
   summary: Compress responses in your Flask app with gzip.
-
   description: |
     Flask-Compress allows you to easily compress your Flask application's responses with gzip.
   dev_url: https://github.com/colour-science/flask-compress
