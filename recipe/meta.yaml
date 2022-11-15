@@ -20,7 +20,8 @@ requirements:
   host:
     - python
     - pip
-    - setuptools_scm
+    - setuptools
+    - setuptools_scm[toml]
     - wheel
   run:
     - python
