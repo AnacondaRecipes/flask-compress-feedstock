@@ -1,33 +1,36 @@
 {% set name = "Flask-Compress" %}
-{% set version = "1.13" %}
-{% set sha256 = "ee96f18bf9b00f2deb4e3406ca4a05093aa80e2ef0578525a3b4d32ecdff129d" %}
+{% set version = "1.17" %}
 
 package:
   name: {{ name|lower }}
   version: {{ version }}
 
 source:
-  fn: {{ name }}-{{ version }}.tar.gz
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
-  sha256: {{ sha256 }}
+  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name|lower|replace('-', '_') }}-{{ version }}.tar.gz
+  sha256: 1ebb112b129ea7c9e7d6ee6d5cc0d64f226cbc50c4daddf1a58b9bd02253fbd8
 
 build:
   number: 0
-  script: {{ PYTHON }} -m pip install . -vv
-  skip: True # [py<37]
+  script_env:
+    - SETUPTOOLS_SCM_PRETEND_VERSION={{ version }}
+  script: {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
+  skip: True  # [py<39]
 
 requirements:
   host:
     - python
     - pip
-    - setuptools
-    - setuptools_scm
+    - setuptools >=42
+    - setuptools_scm <8
     - toml
     - wheel
   run:
     - python
     - flask
-    - brotli-python
+    - brotli-python # [python_impl != "pypy"]
+    - brotlicffi  # [python_impl == "pypy"]
+    - zstandard
+    - cffi >=1.17  # [python_impl == "pypy"]
 
 test:
   source_files:
@@ -37,8 +40,10 @@ test:
   requires:
     - pip
     - pytest
+    - flask-caching
   commands:
     - pip check
+    - python -c "from importlib.metadata import version; assert(version('{{ name }}')=='{{ version }}')"
     - pytest tests
 
 about:
@@ -46,9 +51,12 @@ about:
   license: MIT
   license_family: MIT
   license_file: LICENSE.txt
-  summary: Compress responses in your Flask app with gzip.
+  summary: Flask-Compress allows you to easily compress your Flask application's responses with gzip, deflate, brotli or zstd.
   description: |
-    Flask-Compress allows you to easily compress your Flask application's responses with gzip.
+    Flask-Compress allows you to easily compress your Flask application's responses with gzip, deflate, brotli or zstd. 
+    It originally started as a fork of Flask-gzip. Supported Python versions are 3.9 and newer.
+    The preferred solution is to have a server (like Nginx) automatically compress the static files for you. 
+    If you don't have that option Flask-Compress will solve the problem for you.
   dev_url: https://github.com/colour-science/flask-compress
   doc_url: https://github.com/colour-science/flask-compress/blob/master/README.md
 
