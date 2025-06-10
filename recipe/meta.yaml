@@ -27,7 +27,7 @@ requirements:
   run:
     - python
     - flask
-    - brotli-python # [python_impl != "pypy"]
+    - brotli-python  # [python_impl != "pypy"]
     - brotlicffi  # [python_impl == "pypy"]
     - zstandard
     - cffi >=1.17  # [python_impl == "pypy"]
