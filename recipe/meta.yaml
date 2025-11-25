@@ -1,20 +1,20 @@
 {% set name = "Flask-Compress" %}
-{% set version = "1.17" %}
+{% set version = "1.23" %}
 
 package:
   name: {{ name|lower }}
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name|lower|replace('-', '_') }}-{{ version }}.tar.gz
-  sha256: 1ebb112b129ea7c9e7d6ee6d5cc0d64f226cbc50c4daddf1a58b9bd02253fbd8
+  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/{{ name|lower|replace('-', '_') }}-{{ version }}.tar.gz
+  sha256: 5580935b422e3f136b9a90909e4b1015ac2b29c9aebe0f8733b790fde461c545
 
 build:
   number: 0
   script_env:
     - SETUPTOOLS_SCM_PRETEND_VERSION={{ version }}
   script: {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
-  skip: True  # [py<39]
+  skip: true  # [py<39]
 
 requirements:
   host:
@@ -24,13 +24,16 @@ requirements:
     - setuptools_scm <8
     - toml
     - wheel
+    - setuptools-scm <8
   run:
     - python
     - flask
     - brotli-python  # [python_impl != "pypy"]
-    - brotlicffi  # [python_impl == "pypy"]
+    - brotlicffi
     - zstandard
     - cffi >=1.17  # [python_impl == "pypy"]
+    - brotli
+    - backports.zstd  # [py<314]
 
 test:
   source_files:
@@ -55,9 +58,9 @@ about:
   license_file: LICENSE.txt
   summary: Flask-Compress allows you to easily compress your Flask application's responses with gzip, deflate, brotli or zstd.
   description: |
-    Flask-Compress allows you to easily compress your Flask application's responses with gzip, deflate, brotli or zstd. 
+    Flask-Compress allows you to easily compress your Flask application's responses with gzip, deflate, brotli or zstd.
     It originally started as a fork of Flask-gzip. Supported Python versions are 3.9 and newer.
-    The preferred solution is to have a server (like Nginx) automatically compress the static files for you. 
+    The preferred solution is to have a server (like Nginx) automatically compress the static files for you.
     If you don't have that option Flask-Compress will solve the problem for you.
   dev_url: https://github.com/colour-science/flask-compress
   doc_url: https://github.com/colour-science/flask-compress/blob/master/README.md
