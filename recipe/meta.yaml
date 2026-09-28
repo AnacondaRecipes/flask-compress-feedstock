@@ -24,15 +24,12 @@ requirements:
     - setuptools_scm <8
     - wheel
     - toml
-    - setuptools-scm <8
-    - brotli {{ brotli }}
   run:
     - python
     - flask
     - brotli-python  # [python_impl != "pypy"]
     - brotlicffi  # [python_impl == "pypy"]
     - backports.zstd  # [py<314]
-    - brotli
 
 test:
   source_files:
@@ -49,7 +46,7 @@ test:
     - pip check
     - python -c "from importlib.metadata import version; assert(version('{{ name }}')=='{{ version }}')"
     # AttributeError: module 'ast' has no attribute 'Str'
-    - pytest -v tests  # [py<314]
+    - pytest -vv tests  # [py<314]
 
 about:
   home: https://github.com/colour-science/flask-compress
