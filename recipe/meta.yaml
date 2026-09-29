@@ -1,5 +1,5 @@
 {% set name = "Flask-Compress" %}
-{% set version = "1.23" %}
+{% set version = "1.25" %}
 
 package:
   name: {{ name|lower }}
@@ -7,7 +7,7 @@ package:
 
 source:
   url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/{{ name|lower|replace('-', '_') }}-{{ version }}.tar.gz
-  sha256: 5580935b422e3f136b9a90909e4b1015ac2b29c9aebe0f8733b790fde461c545
+  sha256: 802954fb3af048cf4ca2a3b414393bf2b98466ae8067e6654ea0aa34ba34aff5
 
 build:
   number: 0
@@ -27,8 +27,7 @@ requirements:
   run:
     - python
     - flask
-    - brotli-python  # [python_impl != "pypy"]
-    - brotlicffi  # [python_impl == "pypy"]
+    - brotli-python
     - backports.zstd  # [py<314]
 
 test:
@@ -46,7 +45,7 @@ test:
     - pip check
     - python -c "from importlib.metadata import version; assert(version('{{ name }}')=='{{ version }}')"
     # AttributeError: module 'ast' has no attribute 'Str'
-    - pytest -v tests  # [py<314]
+    - pytest -vv tests  # [py<314]
 
 about:
   home: https://github.com/colour-science/flask-compress
@@ -55,9 +54,9 @@ about:
   license_file: LICENSE.txt
   summary: Flask-Compress allows you to easily compress your Flask application's responses with gzip, deflate, brotli or zstd.
   description: |
-    Flask-Compress allows you to easily compress your Flask application's responses with gzip, deflate, brotli or zstd. 
+    Flask-Compress allows you to easily compress your Flask application's responses with gzip, deflate, brotli or zstd.
     It originally started as a fork of Flask-gzip. Supported Python versions are 3.9 and newer.
-    The preferred solution is to have a server (like Nginx) automatically compress the static files for you. 
+    The preferred solution is to have a server (like Nginx) automatically compress the static files for you.
     If you don't have that option Flask-Compress will solve the problem for you.
   dev_url: https://github.com/colour-science/flask-compress
   doc_url: https://github.com/colour-science/flask-compress/blob/master/README.md
@@ -68,4 +67,3 @@ extra:
     - mariusvniekerk
   skip-lints:
     - missing_summary
-  
