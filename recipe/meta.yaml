@@ -27,8 +27,7 @@ requirements:
   run:
     - python
     - flask
-    - brotli-python  # [python_impl != "pypy"]
-    - brotlicffi  # [python_impl == "pypy"]
+    - brotli-python
     - backports.zstd  # [py<314]
 
 test:
