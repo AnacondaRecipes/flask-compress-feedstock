@@ -24,15 +24,11 @@ requirements:
     - setuptools_scm <8
     - wheel
     - toml
-    - setuptools-scm <8
-    - brotli {{ brotli }}
   run:
     - python
     - flask
     - brotli-python
     - backports.zstd  # [py<314]
-    - brotli
-    - brotlicffi
 
 test:
   source_files:
